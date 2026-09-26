@@ -1,0 +1,10 @@
+- create a repository
+- Initialize the repository
+- node_modules, package.json, package-lock.json, .gitignore
+- Install express
+- create a server
+- listen to port 7777
+- Install nodemon and update scripts in package.json
+- Differecnce between devDependencies and dependencies
+- Difference between carat and tilde in package.json
+- what is the use of -g while installing nodemon
