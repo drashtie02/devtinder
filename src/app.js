@@ -104,6 +104,48 @@ app.get("/feed", async(req, res) => {
   }
 });
 
+// delete a user
+app.delete("/userDelete", async(req, res) => {
+  const id = req.body.id;
+
+  try{
+    const user = await User.findByIdAndDelete(id);
+    if(!user){
+      res.status(404).send("User not found!");
+    }
+    res.send("User deleted successfully");
+  } catch(err) {
+    res.status(400).send("Error deleting user", err.message);
+  }
+});
+
+
+// Update user 
+app.patch("/userUpdate", async(req, res) => {
+  const id = req.body.id;
+  const updateData = req.body;
+
+  
+  try {
+
+    const ALLOWED_UPDATES = ["userId", "photourl", "gender", "age", "about"];
+
+  const isUpdateAllowed = Object.keys(updateData).every((k) => ALLOWED_UPDATES.includes(k));
+
+  if(!isUpdateAllowed){
+    res.status(400).send("Update not allowed!")
+  }
+    const user = await User.findByIdAndUpdate({_id: id}, updateData, {returnDocument: "after", returnDocument: "before"});
+    if(!user){
+      res.status(404).send("User not found!");
+    }
+    console.log(updateData);
+    res.send("User updated successfully");
+  } catch(err) {
+    res.status(400).send("Error updating user", err.message);
+  } 
+});
+
 connectDB()
   .then(() => {
     console.log("Database connection established");
