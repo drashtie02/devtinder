@@ -52,16 +52,22 @@ const User = require("./models/user");
 //   console.log("Middleware 1");
 //   next();
 // });
-
+app.use(express.json());
 app.post("/signup", async (req, res) => {
-  const user = new User({
-    firstName: "Drashti",
-    lastName: "Prajapati",
-    email: "drashti.prajapati@example.com",
-    password: "password123",
-    age: 25,
-    gender: "Female"
-  });
+
+  // console.log(req.body);
+
+  //Creating a new instance of user model
+
+  const user = new User(req.body);
+  // const user = new User({
+  //   firstName: "Drashti",
+  //   lastName: "Prajapati",
+  //   email: "drashti.prajapati@example.com",
+  //   password: "password123",
+  //   age: 25,
+  //   gender: "Female"
+  // });
   try{
     await user.save();
     res.status(201).send("User created successfully");
