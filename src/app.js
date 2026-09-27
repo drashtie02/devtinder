@@ -73,9 +73,37 @@ app.post("/signup", async (req, res) => {
     res.status(201).send("User created successfully");
   } catch(err){
     res.status(400).send("Error creating user" + err.message);
-  }
-  
+  }  
 });
+
+//find a user by emailId
+app.get("/user", async(req, res) => {
+  const email = req.body.email;
+  try{
+    const user = await User.find({email: email});
+    if(user.length === 0){
+      res.status(404).send("User not found!");
+    }
+    res.send(user);
+  } catch(err) {
+    res.status(400).send("Error getting user with this emailId", err.message);
+  }
+});
+
+//find all users
+app.get("/feed", async(req, res) => {
+  // const email = req.body.email;
+  try{
+    const user = await User.find();
+    if(user.length === 0){
+      res.status(404).send("User not found!");
+    }
+    res.send(user);
+  } catch(err) {
+    res.status(400).send("Error getting user", err.message);
+  }
+});
+
 connectDB()
   .then(() => {
     console.log("Database connection established");

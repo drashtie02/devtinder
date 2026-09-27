@@ -50,3 +50,4 @@
 - what is the diffrence between the jsObject and JSON object
 - Add the Express.json() middleware to your app
 - Make your signup API dynamic to receive data from the end User
+- user.findOne with duplicate email check which object will return 
